@@ -11,27 +11,33 @@ struct LandmarkRow: View {
     var landmark: Landmark
 
     var body: some View {
-        HStack(alignment:.top, spacing: 0) {
+        HStack(alignment:.center, spacing: 10) {
             landmark.image
                 .resizable()
-                .frame(width: 50, height:50)
+                .frame(width: 75, height:75)
             Text("\(landmark.name)")
+                .font(.title3)
             Spacer()
             
             if(landmark.isFavorite){
                 Image(systemName: "star.fill")
+                    .resizable()
                     .foregroundStyle(.yellow)
+                    .frame(width: 30, height: 30, alignment: .center)
                 
             }
         }
-        .border(.red)
     }
 }
 
 #Preview("landmarks"){
     // landmarks is from ModelData.swift
-    LandmarkRow(landmark: landmarks[0])
-    LandmarkRow(landmark: landmarks[1])
+    let landmarks = ModelData().landmarks
+    return Group{
+        LandmarkRow(landmark: landmarks[0]).preferredColorScheme(.dark)
+        LandmarkRow(landmark: landmarks[1]).preferredColorScheme(.dark)
+    }
+    
     
 
 }

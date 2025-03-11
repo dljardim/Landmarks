@@ -9,13 +9,15 @@ import SwiftUI
 
 struct LandmarkList: View {
     
-    // passing landmarks into this view
+    @Environment(ModelData.self) var modelData
     
     @State private var showFavoritesOnly:Bool = true
     
     var filteredLandmarks: [Landmark] {
-        landmarks.filter{landmark in
-            (showFavoritesOnly && landmark.isFavorite)
+        
+        // landmarks comes from ModelData.swift
+        modelData.landmarks.filter{landmark in
+            (!showFavoritesOnly || landmark.isFavorite)
         }
     }
     
@@ -36,6 +38,7 @@ struct LandmarkList: View {
                 }
             }
             .navigationTitle("Landmarks")
+            .animation(.default, value: filteredLandmarks)
         } detail: {
             Text("Select a landmark")
         }
@@ -44,4 +47,6 @@ struct LandmarkList: View {
 
 #Preview {
     LandmarkList()
+        .environment(ModelData())
+        .preferredColorScheme(.dark)
 }
