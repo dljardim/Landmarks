@@ -1,43 +1,36 @@
-//
-//  LandmarkRow.swift
-//  Landmarks
-//
-//  Created by Damian Jardim on 2/17/25.
-//
+/*
+ See the LICENSE.txt file for this sample’s licensing information.
+ 
+ Abstract:
+ A single row to be displayed in a list of landmarks.
+ */
 
 import SwiftUI
 
 struct LandmarkRow: View {
     var landmark: Landmark
-
+    
     var body: some View {
-        HStack(alignment:.center, spacing: 10) {
+        HStack {
             landmark.image
                 .resizable()
-                .frame(width: 75, height:75)
-            Text("\(landmark.name)")
-                .font(.title3)
+                .frame(width: 50, height: 50)
+            Text(landmark.name)
+            
             Spacer()
             
-            if(landmark.isFavorite){
+            if landmark.isFavorite {
                 Image(systemName: "star.fill")
-                    .resizable()
                     .foregroundStyle(.yellow)
-                    .frame(width: 30, height: 30, alignment: .center)
-                
             }
         }
     }
 }
 
-#Preview("landmarks"){
-    // landmarks is from ModelData.swift
+#Preview {
     let landmarks = ModelData().landmarks
-    return Group{
-        LandmarkRow(landmark: landmarks[0]).preferredColorScheme(.dark)
-        LandmarkRow(landmark: landmarks[1]).preferredColorScheme(.dark)
+    return Group {
+        LandmarkRow(landmark: landmarks[0])
+        LandmarkRow(landmark: landmarks[1])
     }
-    
-    
-
 }
